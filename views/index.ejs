@@ -1,0 +1,61 @@
+<% include partials/header %>
+<h1><center><%= title %></center></h1>
+<div style="float:right">
+<a href="/">Home</a>
+<a href="/services">Services</a>
+<a href="/aboutus">About Us</a>
+<a href="/contactus">Contact Us</a>
+</div>
+<br>
+<hr>
+<fieldset>
+<legend><h1>Add Customers</h1></legend>
+
+<% if(errors != undefined){ %>
+    <ul>
+    <% errors.forEach(function(error){ %>
+        <li>
+            <%= error.msg %>
+        </li>
+    <% }) %>
+    </ul>
+<% } %>
+
+<form method="POST" action="/users/add">
+    <table>
+        <tr>
+            <th>First Name</th>
+            <td><input type="text" name="first_name" placeholder="First Name"></td>
+        </tr>
+    
+        <tr>
+            <th>Last Name</th>
+            <td><input type="text" name="last_name" placeholder="Last Name"></td>
+        </tr>
+
+        <tr>
+            <th>Email ID</th>
+            <td><input type="email" name="email" placeholder="Email"></td>
+        </tr>
+
+        <td><input type="submit" value="Submit"></td>
+    </table>
+</form>
+</fieldset>
+
+<fieldset>
+<legend><h2>Added Customers</h2></legend>
+
+    <ul>
+    <% users.forEach(function(user){ %>
+        <li>
+            <b>Name :</b><%= user.first_name %> <%= user.last_name %><br>
+            <b>Email :</b><%= user.email %>
+        -- <a href="/" class="deleteUser" data-id="<%= user._id %>"><button>Delete</button></a>
+
+        </li>
+    <% }) %>
+    </ul>
+</fieldset>
+
+<% include partials/footer %>
