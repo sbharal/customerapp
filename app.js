@@ -4,7 +4,7 @@ var path = require('path'); //used to simplify file path
 var expressValidator = require('express-validator');
 var app = express();
 var mongojs = require('mongojs');
-var db = mongojs('customerapp', ['users']);
+var db = mongojs('customerapp', ['userdetails']);
 var ObjectId = mongojs.ObjectId;
 
 
@@ -50,33 +50,33 @@ app.use(expressValidator({
 }));
 
 app.get('/', function(req, res){
-    db.users.find(function(err, docs){
+    db.userdetails.find(function(err, docs){
         //console.log(docs);
          //res.send('<h1><center>Welcome To Customer Management Application</center></h1>');
     res.render('index', {
         title: 'Customer Management Application',
-        users: docs
+        userdetails: docs
     });
     //res.json(people);
     })
    
 })
 
-app.post('/users/add', function(req, res){
+app.post('/userdetails/add', function(req, res){
 
 req.checkBody('first_name', 'First Name Required').notEmpty();
 req.checkBody('last_name', 'Last Name Required').notEmpty();
 req.checkBody('email', 'Email Required').notEmpty();
 
 var errors = req.validationErrors();
-var users = [];
+var userdetails = [];
 
 if(errors){
 
-    db.users.find(function(err, docs){
+    db.userdetails.find(function(err, docs){
         res.render('index', {
             title: 'Customer Management Application',
-            users: docs,
+            userdetails: docs,
             errors: errors
         });
     })
@@ -93,7 +93,7 @@ if(errors){
         email: req.body.email
     }
     //console.log('SUCCESS');
-    db.users.insert(newUser, function(err, result){
+    db.userdetails.insert(newUser, function(err, result){
         if(err){
             console.log(err);
         } else {
@@ -104,8 +104,8 @@ if(errors){
     
 })
 
-app.delete('/users/delete/:id', function(req, res){
-    db.users.remove({_id: ObjectId(req.params.id)}, function(err, result){
+app.delete('/userdetails/delete/:id', function(req, res){
+    db.userdetails.remove({_id: ObjectId(req.params.id)}, function(err, result){
         if(err){
             console.log(err);
         }
@@ -113,6 +113,6 @@ app.delete('/users/delete/:id', function(req, res){
     })
 })
 
-app.listen(process.env.PORT || 3000, function(){
-    console.log('Server Started at port 3000...');
+app.listen(process.env.PORT || 5000, function(){
+    console.log('Server Started at port 5000...');
 })

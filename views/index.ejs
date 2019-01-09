@@ -21,7 +21,7 @@
     </ul>
 <% } %>
 
-<form method="POST" action="/users/add">
+<form method="POST" action="/userdetails/add">
     <table>
         <tr>
             <th>First Name</th>
@@ -47,7 +47,7 @@
 <legend><h2>Added Customers</h2></legend>
 
     <ul>
-    <% users.forEach(function(user){ %>
+    <% userdetails.forEach(function(user){ %>
         <li>
             <b>Name :</b><%= user.first_name %> <%= user.last_name %><br>
             <b>Email :</b><%= user.email %>
